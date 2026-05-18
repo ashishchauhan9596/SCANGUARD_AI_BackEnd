@@ -64,7 +64,7 @@ async def scan_feedback(feedback: ScanFeedback, user_id: str = Depends(get_curre
 @router.get("/history")
 async def get_scan_history(user_id: str = Depends(get_current_user)):
     scans = await db.fetch(
-        "SELECT id as scan_id, scan_data, health_report, product_identity, created_at FROM master_scans WHERE user_id = $1 ORDER BY created_at DESC",
+        "SELECT id as scan_id, scan_data, created_at FROM master_scans WHERE user_id = $1 ORDER BY created_at DESC",
         user_id
     )
     
