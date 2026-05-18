@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+asyncpg
+google-auth
+pyjwt
+python-dotenv
+google-generativeai
+uuid6
+pydantic>=2.0.0
+pydantic-settings
+email-validator
+httpx
