@@ -2,7 +2,7 @@ fastapi
 uvicorn
 asyncpg
 google-auth
-pyjwt
+python-jose[cryptography]
 python-dotenv
 google-generativeai
 uuid6

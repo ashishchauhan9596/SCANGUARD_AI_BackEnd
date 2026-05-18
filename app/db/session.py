@@ -1,4 +1,5 @@
 import asyncpg
+import ssl
 from app.core.config import settings
 
 class Database:
@@ -7,7 +8,18 @@ class Database:
 
     async def connect(self):
         if not self.pool:
-            self.pool = await asyncpg.create_pool(settings.DATABASE_URL)
+            # Strip query params like ?sslmode=require
+            clean_url = settings.DATABASE_URL.split('?')[0]
+            
+            # Create a permissive SSL context for Neon
+            ctx = ssl.create_default_context()
+            ctx.check_hostname = False
+            ctx.verify_mode = ssl.CERT_NONE
+
+            self.pool = await asyncpg.create_pool(
+                clean_url,
+                ssl=ctx
+            )
 
     async def disconnect(self):
         if self.pool:
